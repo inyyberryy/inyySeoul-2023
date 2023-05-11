@@ -1,7 +1,11 @@
+"use client";
+
 export default function Footer() {
+  let today = new Date();
+  
   return (
     <div>
-      Footer
+      inyyberryy {today.getFullYear()}
     </div>
   )
 }
