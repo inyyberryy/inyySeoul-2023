@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {  // children: 우리가 만�
         <br />
         <Category />
         <hr />
-        {children}
+        {children}  {/* page.js가 들어가는 부분 */}
         <Footer />
       </body>
     </html>
