@@ -3,6 +3,7 @@ import { Card, Button } from 'antd';
 import Image from 'next/image'; 
 import { TbMessageCircle2Filled } from "react-icons/tb"; 
 import { HiOutlineMail } from "react-icons/hi";
+import KakaoLogin from '@/components/KakaoLogin';
 
 export default function SignUp() {
   return (
@@ -21,7 +22,7 @@ export default function SignUp() {
       />
     <p>I • SEOUL • YOU</p>
     <Button style={{fontSize:"16px", background: "#69b1ff", height: "40px", width: "300px"}}> <HiOutlineMail />이메일 회원가입</Button>
-    <Button style={{fontSize:"16px", background: "#fadb14", height: "40px", width: "300px"}}> <TbMessageCircle2Filled />카카오로 바로 시작</Button>
+    <KakaoLogin />
   </Card>
       Sign Up
     </div>

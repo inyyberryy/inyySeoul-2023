@@ -2,12 +2,13 @@
 import React from 'react';
 import { useState } from 'react';
 import Link from "next/link";
-import Image from 'next/image';
-import { Input, Space, Button, Tooltip } from 'antd';
+import { Input, Space, Button, Tooltip, Image } from 'antd';
 import { CgProfile } from 'react-icons/cg';
+import ImageWeb from 'next/image';
 import { HiPencilSquare } from 'react-icons/hi2';
+import { useSession, signOut } from "next-auth/react";
 
-function LoginTrue({setId}) {
+function LoginTrue({}) {
   return (
   <div className='login_true_line'>
     <Link href="/createreview"><Button type="text" style={{fontSize:"18px"}}><HiPencilSquare /></Button></Link>
@@ -20,30 +21,35 @@ function LoginTrue({setId}) {
   );
 }
 
-function LoginFalse({setId}) {
+function LoginFalse({}) {
   return (
     <Space className="login_signup_line">
-      <Link href="../login"><Button size="large" style={{ background: "skyblue" }} onClick={() => setId(true)}>로그인</Button></Link>
+      <Link href="../login"><Button size="large" style={{ background: "skyblue" }} >로그인</Button></Link>
       <Link href="../signup"><Button size="large" style={{ background: "#4096ff" }}>회원가입</Button></Link>
     </Space>
     );
 }
 
 function LoginToolTip() {
+  const { data } = useSession();  // data.user.머시기 (email, name, image)
+  const userProfileImg = data?.user?.image;
+
+
   return (
     <Space direction='vertical'>
     <Space direction='horizontal'>
-      <Image src="/1.jpg" 
-      width={60} height={60} 
-      style={{borderRadius: '50%', padding: '3px'}}
+      <Image
+        src={userProfileImg}
+        width={60} height={60} 
+        style={{borderRadius: '50%', padding: '3px'}}
       />
     <Space direction='vertical'>
-    <Button size="middle" type="text" style={{color:'black', fontSize: '16px', height: '32px', width:'100px'}}>박세인</Button>
+    <Button size="middle" type="text" style={{color:'black', fontSize: '16px', height: '32px', width:'100px'}}>{data.user.name}</Button>
     <Link href="/mypage"><Button size="middle" type="text" style={{color:'blue', fontSize: '16px', height: '32px', width:'100px'}}>프로필 관리</Button></Link>
     </Space>
     </Space>
       <hr />
-    <Button size="middle" type="text" style={{color:'black', fontSize: '16px', height: '35px', width:'170px'}}>로그아웃</Button>
+    <Button size="middle" type="text" style={{color:'black', fontSize: '16px', height: '35px', width:'170px'}} onClick={() => signOut()}>로그아웃</Button>
     </Space>
   );
 }
@@ -51,16 +57,16 @@ function LoginToolTip() {
 export default function Header() {
   const { Search } = Input;
   const onSearch = (value) => console.log(value);
-  const [id, setId] = useState(false);
+
+  const { data } = useSession();
 
   return (
     <Space direction='horizontal'>
-      <Image 
+      <ImageWeb 
         src="/logo.png"
         alt="inyySeoul"
-        width={150} height={112} 
+        width={165} height={112} 
       />
-
       <Space className="search_bar">
         <Search
           placeholder="검색해바"
@@ -73,7 +79,7 @@ export default function Header() {
           }}
         />
       </Space>
-      { id ? <LoginTrue setId={setId} /> : <LoginFalse setId={setId} /> }
+      { data?.user ? <LoginTrue /> : <LoginFalse /> } {/* data 안에 user가 있으면 user를 반환, 없으면 undefined 반환 */}
     </Space>
   )
 }

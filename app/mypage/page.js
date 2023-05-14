@@ -1,9 +1,9 @@
 "use client";
-import Image from 'next/image'; 
 import Link from "next/link";
-import { Input, Space, Button } from 'antd';
+import { Input, Space, Button, Image } from 'antd';
 import { CgProfile } from 'react-icons/cg';
-
+import KakaoLogin from "@/components/KakaoLogin";
+import { useSession, signOut } from "next-auth/react";
 
 export default function Mypage() {
   
@@ -15,6 +15,9 @@ export default function Mypage() {
     outline: 'none',
     paddingLeft: '10px'
   };
+
+  const { data } = useSession();  // data.user.머시기 (email, name, image)
+  const userProfileImg = data?.user?.image;
 
   return (
     <Space 
@@ -31,7 +34,7 @@ export default function Mypage() {
         position: "absolute", 
         top: 20, right: 20}}>편집</Button></div>
       
-      <Image src="/1.jpg" 
+      <Image src={userProfileImg}
           width={200} height={200} 
           style={{borderRadius: '50%', padding: '3px'}}
         />
@@ -41,11 +44,11 @@ export default function Mypage() {
       <div direction='vertical'>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <span style={{ display: 'flex', alignItems: 'center', whiteSpace: 'nowrap', minWidth: '150px' }}>이름</span>
-        <Input size="large" placeholder="이름" style={{ ...inputStyle }} />
+        <Input size="large" value={data.user.name} style={{ ...inputStyle }} />
       </div>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <span style={{ display: 'flex', alignItems: 'center', whiteSpace: 'nowrap', minWidth: '150px' }}>이메일</span>
-        <Input size="large" placeholder="이메일" style={{ ...inputStyle }} />
+        <Input size="large" value={data.user.email} style={{ ...inputStyle }} />
       </div>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <span style={{ display: 'flex', alignItems: 'center', whiteSpace: 'nowrap', minWidth: '150px' }}>비밀번호</span>
