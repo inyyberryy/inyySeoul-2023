@@ -1,8 +1,11 @@
+"use client";
+import KakaoMap from '@/components/KakaoMap';
 
 export default function Fun() {
   return (
     <div>
-      Fun
+      page - 즐길거리
+      <KakaoMap />
     </div>
-  )
+  );
 }

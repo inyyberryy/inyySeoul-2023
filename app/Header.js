@@ -34,7 +34,6 @@ function LoginToolTip() {
   const { data } = useSession();  // data.user.머시기 (email, name, image)
   const userProfileImg = data?.user?.image;
 
-
   return (
     <Space direction='vertical'>
     <Space direction='horizontal'>
@@ -62,11 +61,14 @@ export default function Header() {
 
   return (
     <Space direction='horizontal'>
-      <ImageWeb 
-        src="/logo.png"
-        alt="inyySeoul"
-        width={165} height={112} 
-      />
+      <Link href="/">
+        <ImageWeb 
+          src="/logo.png"
+          alt="inyySeoul"
+          width={165} height={112} 
+        />
+      </Link>
+
       <Space className="search_bar">
         <Search
           placeholder="검색해바"

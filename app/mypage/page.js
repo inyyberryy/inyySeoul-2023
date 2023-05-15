@@ -27,12 +27,14 @@ export default function Mypage() {
       flexDirection: "column",
       alignItems: "center" }} 
     direction='vertical' >
-      <div><Button
-      style={{
-        fontSize:"18px", 
-        background: "#69b1ff", 
-        position: "absolute", 
-        top: 20, right: 20}}>편집</Button></div>
+      <div>
+        <Button
+        style={{
+          fontSize:"18px", 
+          background: "#69b1ff", 
+          position: "absolute", 
+          top: 20, right: 20}}>편집</Button>
+        </div>
       
       <Image src={userProfileImg}
           width={200} height={200} 

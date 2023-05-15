@@ -9,7 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
     "antd": "^5.4.7",
+    "axios": "^1.4.0",
+    "css-loader": "^6.7.3",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
     "firebase": "^9.21.0",
@@ -20,10 +24,19 @@
     "next-compose-plugins": "^2.2.1",
     "next-pwa": "^5.6.0",
     "react": "18.2.0",
+    "react-async-script": "^1.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
     "react-kakao-login": "^2.1.1",
     "react-kakao-maps": "^0.0.13",
     "react-kakao-maps-sdk": "^1.1.9"
+  },
+  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+  "main": "next.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/google.maps": "^3.53.1"
   }
 }

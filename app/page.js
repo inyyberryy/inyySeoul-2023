@@ -2,6 +2,7 @@
 // user-side rendering (= client-side rendering): 페이지에서 변경되는 ui가 하나라도 있을 때 사용  (component가 이 기법 사용)
 import styles from './page.module.css'
 import { connectDB } from "@/utils/database"
+import AutoplayImg from '@/components/AutoplayImg';
 
 export default async function Home() {
   let client = await connectDB;
@@ -12,6 +13,7 @@ export default async function Home() {
     <div>
       Home
       {result.map(x=>x.name)}
+      <AutoplayImg />
     </div>
   )
 }
