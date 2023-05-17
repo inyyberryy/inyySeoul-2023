@@ -3,15 +3,18 @@
 import styles from './page.module.css'
 import { connectDB } from "@/utils/database"
 import AutoplayImg from '@/components/AutoplayImg';
+import Name from './Name';
+import MapComponent from '@/components/Test';
 
 export default async function Home() {
   let client = await connectDB;
   const db = client.db('inyySeoul');
   let result = await db.collection('user').find().toArray();
 
+
   return (
     <div>
-      Home
+      <h2> <Name /> 님에게 맛집을 소개해드려용! (•ө•)♡ </h2>
       {result.map(x=>x.name)}
       <AutoplayImg />
     </div>

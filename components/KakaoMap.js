@@ -21,12 +21,12 @@ const KakaoMap = () => {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
             const locPosition = new kakao.maps.LatLng(lat, lon);
-            const message = '<div style="padding:5px;">여기에 계신가요?!</div>';
+            const message = '<div style="padding:5px;">여기에 있나용?!</div>';
             displayMarker(locPosition, message);
           });
         } else {
           const locPosition = new kakao.maps.LatLng(36.3345250, 127.3887417);
-          const message = 'geolocation을 사용할 수 없어요..';
+          const message = '현재 위치를 알 수 없어용 🥺..';
           displayMarker(locPosition, message);
         }
 
