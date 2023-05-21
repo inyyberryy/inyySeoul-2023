@@ -1,22 +1,36 @@
 "use client";
 import Link from "next/link";
-import { Card, Space, Button, Image } from 'antd';
-import KakaoLogin from "@/components/KakaoLogin";
-import { useSession, signOut } from "next-auth/react";
+import { Card, Pagination, Button, Image } from 'antd';
 import { RiHeart3Line, RiHeart3Fill } from 'react-icons/ri';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Test from "./Test";
 
-export default async function Data() {
-  const url = 'http://openapi.seoul.go.kr:8088/654571674f6331743338526e4c716b/json/SebcTourStreetKor/1/1000/';
-  const response = await axios.get(url);
-  let arr = [];
-  arr = response.data.SebcTourStreetKor.row;
+export default function Data() {
+  const [arr, setArr] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const url = 'http://openapi.seoul.go.kr:8088/654571674f6331743338526e4c716b/json/SebcTourStreetKor/1/1000/';
+      const response = await axios.get(url);
+      setArr(response.data.SebcTourStreetKor.row);
+    };
+    fetchData();
+  }, []);
+  
+  const [current, setCurrent] = useState(1);
+  const total_card = 8;
+  const lastNum = current * total_card;
+  const startNum = lastNum - total_card;
+  
+  let sliceData = arr.slice(startNum, lastNum);
+
   return (
-      <div>
+      <div style={{marginLeft: "25px"}}>
         <Test arr={arr} />
-        {arr.map(x => <CardPage x={x} />)}
+        {sliceData.map(x => <CardPage x={x} />)}
+          <Pagination current={current} total={arr.length} defaultPageSize={total_card} showSizeChanger={false} 
+          showLessItems={false} simple={true} onChange={(current) =>  setCurrent(current)} />
       </div>
   )
 }
@@ -31,7 +45,8 @@ function CardPage({x}) {
       style={{
         width: 280,
         position: "relative",
-        paddingRight: "50px",
+        marginRight: "50px",
+        marginBottom: "50px",
         display: "inline-block"
       }}
       cover={<img alt="example" src="https://firebasestorage.googleapis.com/v0/b/inyyfood.appspot.com/o/images%2F1.JPG?alt=media&token=18a632d2-dd20-4144-9f79-4e017eec2db9" />}
@@ -44,6 +59,5 @@ function CardPage({x}) {
         onClick={() => setLike(!like) }/>
        <Meta title={x.NAME_KOR} description={"서울시" + " " + x.H_KOR_GU + " " + x.H_KOR_DONG} />
   </Card>
-
   )
 }

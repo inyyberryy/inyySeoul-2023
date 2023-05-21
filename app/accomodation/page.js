@@ -1,8 +1,16 @@
+"use client";
+import Link from "next/link";
+import React, { useState } from "react";
+import { Space, Button, Image } from 'antd';
+import HotelCard from "@/components/Hotel";
+
 
 export default function Accomodation() {
+
   return (
     <div>
-      Accomodation
+      <h2 style={{marginLeft: "25px"}}>숙소를 찾아볼까용?</h2>
+      <HotelCard />
     </div>
   )
 }

@@ -13,7 +13,7 @@ export default async function Home() {
 
 
   return (
-    <div>
+    <div style={{marginLeft: "25px"}}>
       <h2> <Name /> 님에게 맛집을 소개해드려용! (•ө•)♡ </h2>
       {result.map(x=>x.name)}
       <AutoplayImg />
