@@ -4,17 +4,25 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Encrypt from '@/components/Encrypt';
 import { PlusOutlined } from '@ant-design/icons';
+import Password from 'antd/es/input/Password';
 
 export default function SignUpForm() {
   const [form] = Form.useForm();
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     const router = useRouter();
+
+    const bcrPassword = await Encrypt(values.password);
+    const temp = {
+      name: values.name,
+      email: values.email,
+      password: bcrPassword
+    }  // 전처리 (pw -> bcrypt password, 비밀번호확인 없앰)
 
     // 회원가입 요청 보내기
     fetch('/api/signup', {
       method: 'POST',
-      body: JSON.stringify(values),
+      body: JSON.stringify(temp),
       headers: {
         'Content-Type': 'application/json',
       },
