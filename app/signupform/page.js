@@ -1,13 +1,35 @@
 "use client";
-import {
-  AutoComplete, Button, Checkbox, Form,
-  Input, Select, Option } from 'antd';
+import { Button, Checkbox, Form, Input, Select, Option, message, Modal } from 'antd';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
+import Encrypt from '@/components/Encrypt';
+import { PlusOutlined } from '@ant-design/icons';
 
 export default function SignUpForm() {
   const [form] = Form.useForm();
+
   const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+    const router = useRouter();
+
+    // 회원가입 요청 보내기
+    fetch('/api/signup', {
+      method: 'POST',
+      body: JSON.stringify(values),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Response:', data);
+        // 회원가입 완료 후 필요한 동작 수행
+        // 예: 로그인 페이지로 이동
+        router.push('/login');
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        // 에러 처리 로직 구현
+      });
   };
 
   const formItemLayout = {

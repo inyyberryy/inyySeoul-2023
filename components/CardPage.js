@@ -5,6 +5,7 @@ import { RiHeart3Line, RiHeart3Fill } from 'react-icons/ri';
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Test from "./Test";
+import ImgApi from "./ImgAPI";
 
 export default function Data() {
   const [arr, setArr] = useState([]);
@@ -38,6 +39,15 @@ export default function Data() {
 function CardPage({x}) {
   const { Meta } = Card;
   const [like, setLike] = useState(false);
+  const address = "서울시" + " " + x.H_KOR_GU + " " + x.H_KOR_DONG;
+  const [URLaddress, setURLaddress] = useState('https://firebasestorage.googleapis.com/v0/b/inyyfood.appspot.com/o/images%2F1.JPG?alt=media&token=18a632d2-dd20-4144-9f79-4e017eec2db9');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setURLaddress(ImgApi(address + " " + x.NAME_KOR));
+    };
+    fetchData();
+  }, []);
 
   return (
     <Card
@@ -49,7 +59,7 @@ function CardPage({x}) {
         marginBottom: "50px",
         display: "inline-block"
       }}
-      cover={<img alt="example" src="https://firebasestorage.googleapis.com/v0/b/inyyfood.appspot.com/o/images%2F1.JPG?alt=media&token=18a632d2-dd20-4144-9f79-4e017eec2db9" />}
+      cover={<img alt="example" src={URLaddress} />}
     >
        <Button shape="circle" icon={like ? <RiHeart3Fill style={{color:"pink"}} /> : <RiHeart3Line />} 
        style={{
@@ -57,7 +67,7 @@ function CardPage({x}) {
         top: 10, right: 10, 
         fontSize: "18px"}} 
         onClick={() => setLike(!like) }/>
-       <Meta title={x.NAME_KOR} description={"서울시" + " " + x.H_KOR_GU + " " + x.H_KOR_DONG} />
+       <Meta title={x.NAME_KOR} description={address} />
   </Card>
   )
 }
