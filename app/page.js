@@ -4,7 +4,7 @@ import styles from './page.module.css'
 import { connectDB } from "@/utils/database"
 import AutoplayImg from '@/components/AutoplayImg';
 import Name from './Name';
-import MapComponent from '@/components/Test';
+import MapComponent from '@/components/MapMarker';
 
 export default async function Home() {
   let client = await connectDB;

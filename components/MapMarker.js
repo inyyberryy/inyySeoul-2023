@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Modal } from 'antd'
 
-const Test = ({ arr }) => {
+const MapMarker = ({ arr }) => {
 
   const [modal1Open, setModal1Open] = useState(false);
   const [title, setTitle] = useState("");
@@ -82,4 +82,4 @@ const Test = ({ arr }) => {
   </div>;
 };
 
-export default Test;
+export default MapMarker;

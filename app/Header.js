@@ -11,7 +11,6 @@ import { useSession, signOut } from "next-auth/react";
 function LoginTrue({}) {
   return (
   <div className='login_true_line'>
-    <Link href="/createreview"><Button type="text" style={{fontSize:"18px"}}><HiPencilSquare /></Button></Link>
     <Link href="/myreview"><Button type="text" style={{fontSize:"18px"}}>내 리뷰</Button></Link>
     <Link href="/wishlist"><Button type="text" style={{fontSize:"18px"}}>위시리스트</Button></Link>
     <Tooltip title={<LoginToolTip />} placement='bottomRight' color={'skyblue'} >

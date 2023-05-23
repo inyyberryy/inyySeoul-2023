@@ -1,26 +1,30 @@
 "use client";
 import { Button, Checkbox, Form, Input, Select, Option, message, Modal } from 'antd';
-import { useRouter } from 'next/router';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Encrypt from '@/components/Encrypt';
 import { PlusOutlined } from '@ant-design/icons';
 import Password from 'antd/es/input/Password';
 
 export default function SignUpForm() {
+  const pathname = usePathname();
+  const router = useRouter();
   const [form] = Form.useForm();
 
   const onFinish = async (values) => {
-    const router = useRouter();
 
     const bcrPassword = await Encrypt(values.password);
     const temp = {
       name: values.name,
       email: values.email,
-      password: bcrPassword
+      password: bcrPassword,
+      image:"https://firebasestorage.googleapis.com/v0/b/inyyfood.appspot.com/o/add%2FKakaoTalk_20230518_122633783.jpg?alt=media&token=786eeefd-cfde-4383-8d43-b7e61565d6a4",
+      admin: false,
+      favorite:[]
     }  // 전처리 (pw -> bcrypt password, 비밀번호확인 없앰)
 
     // 회원가입 요청 보내기
-    fetch('/api/signup', {
+    fetch('/api/auth/signup', {
       method: 'POST',
       body: JSON.stringify(temp),
       headers: {
@@ -29,7 +33,6 @@ export default function SignUpForm() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Response:', data);
         // 회원가입 완료 후 필요한 동작 수행
         // 예: 로그인 페이지로 이동
         router.push('/login');
@@ -177,7 +180,6 @@ export default function SignUpForm() {
     </div>
   );
 }
-
 
 
 

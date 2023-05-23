@@ -4,8 +4,7 @@ import { Card, Pagination, Button, Image } from 'antd';
 import { RiHeart3Line, RiHeart3Fill } from 'react-icons/ri';
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Test from "./Test";
-import ImgApi from "./ImgAPI";
+import MapMarker from "./MapMarker";
 
 export default function Data() {
   const [arr, setArr] = useState([]);
@@ -28,26 +27,18 @@ export default function Data() {
 
   return (
       <div style={{marginLeft: "25px"}}>
-        <Test arr={arr} />
-        {sliceData.map(x => <CardPage x={x} />)}
+        <MapMarker arr={arr} />
+        {sliceData.map((x, n) => <CardPage x={x} key={n}/>)}
           <Pagination current={current} total={arr.length} defaultPageSize={total_card} showSizeChanger={false} 
           showLessItems={false} simple={true} onChange={(current) =>  setCurrent(current)} />
       </div>
   )
 }
 
-function CardPage({x}) {
+async function CardPage({x}) {
   const { Meta } = Card;
   const [like, setLike] = useState(false);
   const address = "서울시" + " " + x.H_KOR_GU + " " + x.H_KOR_DONG;
-  const [URLaddress, setURLaddress] = useState('https://firebasestorage.googleapis.com/v0/b/inyyfood.appspot.com/o/images%2F1.JPG?alt=media&token=18a632d2-dd20-4144-9f79-4e017eec2db9');
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setURLaddress(ImgApi(address + " " + x.NAME_KOR));
-    };
-    fetchData();
-  }, []);
 
   return (
     <Card

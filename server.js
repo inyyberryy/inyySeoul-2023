@@ -25,11 +25,18 @@ app.get('/api/search/image', async (req, res) => {
         'X-Naver-Client-Id': clientId,
         'X-Naver-Client-Secret': clientSecret,
       },
+      params: {
+        display: 1,
+        start: 1,
+        sort: "sim",
+        filter: "all"
+      }
     });
 
+    console.log(response.data?.items);
     res.status(200).json(response.data);
   } catch (error) {
-    console.error('API 요청 중 오류가 발생했습니다:', error);
+    console.error('API 요청 중 오류가 발생했습니다:');
     res.status(error.response.status || 500).end();
   }
 });
