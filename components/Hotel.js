@@ -1,5 +1,4 @@
-"use client";
-import { Card, Pagination, Button, Image, Modal, Typography } from 'antd';
+import { Card, Pagination, Button, Image, Modal, Typography, Row, Col } from 'antd';
 import { RiHeart3Line, RiHeart3Fill } from 'react-icons/ri';
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -27,9 +26,22 @@ export default function Data() {
 
   return (
     <div style={{ marginLeft: "25px" }}>
-      {sliceData.map((x, n) => <CardPage key={n} x={x} sliceData={sliceData} />)}
-      <Pagination current={current} total={arr.length} defaultPageSize={total_card} showSizeChanger={false}
-        showLessItems={false} simple={true} onChange={(current) => setCurrent(current)} />
+      <Row gutter={[16, 16]}>
+        {sliceData.map((x, n) => (
+          <Col key={n} xs={24} sm={12} md={8} lg={6}>
+            <CardPage x={x} sliceData={sliceData} />
+          </Col>
+        ))}
+      </Row>
+      <Pagination
+        current={current}
+        total={arr.length}
+        defaultPageSize={total_card}
+        showSizeChanger={false}
+        showLessItems={false}
+        simple={true}
+        onChange={(current) => setCurrent(current)}
+      />
     </div>
   )
 }
@@ -38,20 +50,9 @@ function CardPage({ x, sliceData }) {
   const { Meta } = Card;
   const [like, setLike] = useState(false);
   const [imageURL, setImageURL] = useState('');
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+  const [open, setOpen] = useState(false);
 
   const address = "서울시" + " " + x.H_KOR_GU + " " + x.H_KOR_DONG;
-
 
   useEffect(() => {
     const fetchImageURL = async () => {
@@ -66,34 +67,39 @@ function CardPage({ x, sliceData }) {
     fetchImageURL();
   }, [sliceData]);
 
-
-
   return (
     <Card
       hoverable
-      onClick={showModal}
+      onClick={() => setOpen(!open)}
       style={{
-        width: 280,
+        width: "280px", // Card 크기를 고정시키기 위해 width 값을 지정
         position: "relative",
-        marginRight: "50px",
-        marginBottom: "50px",
-        display: "inline-block"
+        display: "flex",
+        flexDirection: "column"
       }}
-      cover={<img alt="example" src={imageURL} style={{ width: 280, height: 320 }} />}
+      cover={<img alt="example" src={imageURL} style={{ width: "100%", height: "320px", objectFit: "cover" }} />}
     >
-      <Button shape="circle" icon={like ? <RiHeart3Fill style={{ color: "pink" }} /> : <RiHeart3Line />}
+      <Button
+        shape="circle"
+        icon={like ? <RiHeart3Fill style={{ color: "pink" }} /> : <RiHeart3Line />}
         style={{
           position: "absolute",
-          top: 10, right: 10,
+          top: "10px",
+          right: "10px",
           fontSize: "18px"
         }}
-        onClick={() => setLike(!like)} />
+        onClick={() => setLike(!like)}
+      />
       <Meta title={x.NAME_KOR} description={x.CATE3_NAME + "/ " + address} />
-      <Modal title={x.NAME_KOR} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal
+        title={x.NAME_KOR}
+        open={open}
+      >    
         <p>{x.CATE3_NAME}</p>
         <p>{address}</p>
         <p>Some contents...</p>
         <Link href="/createreview"  style={{float:'right'}}><Button type="text" style={{fontSize:"15px"}}><HiPencilSquare /><Text strong underline>리뷰 작성</Text></Button></Link>
+
       </Modal>
     </Card>
   )

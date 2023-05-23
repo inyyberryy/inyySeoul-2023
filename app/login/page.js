@@ -56,7 +56,7 @@ export default function Login() {
               },
             ]}
           >
-            <Input size="large" placeholder="ID" prefix={<UserOutlined />} style={{ height: "40px", width: "300px" }} />
+            <Input size="large" placeholder="email" prefix={<UserOutlined />} style={{ height: "40px", width: "300px" }} />
           </Form.Item>
 
           <Form.Item

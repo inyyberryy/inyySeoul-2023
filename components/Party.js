@@ -1,9 +1,8 @@
 "use client";
-import { Card, Pagination, Button, Image, Drawer } from 'antd';
+import { Card, Pagination, Button, Image, Drawer, Row, Col, Space, Typography } from 'antd';
 import { RiHeart3Line, RiHeart3Fill } from 'react-icons/ri';
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Space, Typography } from 'antd';
 import { HiPencilSquare } from 'react-icons/hi2';
 const { Text, Link } = Typography;
 
@@ -27,12 +26,25 @@ export default function Data() {
   let sliceData = arr.slice(startNum, lastNum);
 
 
-
   return (
     <div style={{ marginLeft: "25px" }}>
-      {sliceData.map((x) => <CardPage key={x.TITLE} x={x} />)}
-      <Pagination current={current} total={arr.length} defaultPageSize={total_card} showSizeChanger={false}
-        showLessItems={false} simple={true} onChange={(current) => setCurrent(current)} />
+      <Row gutter={[16, 16]}>
+        {sliceData.map((x, n) => (
+          <Col key={n} xs={24} sm={12} md={8} lg={6}>
+            <CardPage x={x} sliceData={sliceData} />
+          </Col>
+        ))}
+      </Row>
+      <Pagination
+        current={current}
+        total={arr.length}
+        defaultPageSize={total_card}
+        showSizeChanger={false}
+        showLessItems={false}
+        simple={true}
+        onChange={(current) => setCurrent(current)}
+        style={{fontSize:"20px"}}
+      />    
     </div>
   )
 }

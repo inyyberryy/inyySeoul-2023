@@ -1,9 +1,10 @@
 "use client";
 import Link from "next/link";
-import { Card, Pagination, Button, Image } from 'antd';
+import { Card, Pagination, Button, Image, Modal, Row, Col } from 'antd';
 import { RiHeart3Line, RiHeart3Fill } from 'react-icons/ri';
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { HiPencilSquare } from 'react-icons/hi2';
 
 export default function Data() {
     const [arr, setArr] = useState([]);
@@ -24,20 +25,33 @@ export default function Data() {
 
     let sliceData = arr.slice(startNum, lastNum);
 
-    return (
-        <div style={{ marginLeft: "25px" }}>
-            {sliceData.map((x, n) => <CardPage key={x.MAIN_KEY} x={x} sliceData={sliceData} />)}
-            <Pagination current={current} total={arr.length} defaultPageSize={total_card} showSizeChanger={false}
-                showLessItems={false} simple={true} onChange={(current) => setCurrent(current)} />
-        </div>
-    )
+return (
+    <div style={{ marginLeft: "25px" }}>
+      <Row gutter={[16, 16]}>
+        {sliceData.map((x, n) => (
+          <Col key={n} xs={24} sm={12} md={8} lg={6}>
+            <CardPage x={x} sliceData={sliceData} />
+          </Col>
+        ))}
+      </Row>    
+      <Pagination
+        current={current}
+        total={arr.length}
+        defaultPageSize={total_card}
+        showSizeChanger={false}
+        showLessItems={false}
+        simple={true}
+        onChange={(current) => setCurrent(current)}
+      />  
+    </div>
+)
 }
 
 function CardPage({ x, sliceData }) {
     const { Meta } = Card;
     const [like, setLike] = useState(false);
-
     const [imageURL, setImageURL] = useState('');
+    const [open, setOpen] = useState(false);
 
     const address = "서울시" + " " + x.H_KOR_GU + " " + x.H_KOR_DONG;
 
@@ -56,19 +70,18 @@ function CardPage({ x, sliceData }) {
     }, [sliceData]);
 
 
-
     return (
         <Card
             hoverable
             style={{
-                width: 280,
+                width: "280px", // Card 크기를 고정시키기 위해 width 값을 지정
                 position: "relative",
-                marginRight: "50px",
-                marginBottom: "50px",
-                display: "inline-block"
-            }}
-            cover={<img alt="example" src={imageURL} style={{ width: 280, height: 320 }} />}
-        >
+                display: "flex",
+                flexDirection: "column"
+              }}
+            onClick={() => setOpen(!open)}
+            cover={<img alt="example" src={imageURL} style={{ width: "100%", height: "320px", objectFit: "cover" }} />}
+            >
             <Button shape="circle" icon={like ? <RiHeart3Fill style={{ color: "pink" }} /> : <RiHeart3Line />}
                 style={{
                     position: "absolute",
@@ -77,6 +90,16 @@ function CardPage({ x, sliceData }) {
                 }}
                 onClick={() => setLike(!like)} />
             <Meta title={x.NAME_KOR} description={address} />
+            <Modal
+                title={x.NAME_KOR}
+                centered
+                open={open}
+            >
+                <p>some contents…</p>
+                <p>{address}</p>
+                <p>some contents…</p>
+            </Modal>
+    
         </Card>
     )
 }
