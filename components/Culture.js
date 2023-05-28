@@ -1,9 +1,12 @@
-"use client";
-import { Card, Pagination, Button, Image, Modal, Row, Col } from 'antd';
+import { Card, Pagination, Button, Image, Modal, Row, Col, Typography } from 'antd';
 import { RiHeart3Line, RiHeart3Fill } from 'react-icons/ri';
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Link from 'next/link';
+import { HiPencilSquare } from 'react-icons/hi2';
 import MapMarker from './MapMarker';
+
+const { Text } = Typography;
 
 export default function Data() {
   const [arr, setArr] = useState([]);
@@ -49,11 +52,10 @@ export default function Data() {
 function CardPage({ x, sliceData }) {
   const { Meta } = Card;
   const [like, setLike] = useState(false);
-
   const [imageURL, setImageURL] = useState('');
+  const [open, setOpen] = useState(false);
 
   const address = "서울시" + " " + x.H_KOR_GU + " " + x.H_KOR_DONG;
-
 
   useEffect(() => {
     const fetchImageURL = async () => {
@@ -68,27 +70,41 @@ function CardPage({ x, sliceData }) {
     fetchImageURL();
   }, [sliceData]);
 
+  const handleLikeButtonClick = (event) => {
+    event.stopPropagation(); // 이벤트 전파 중지
+    setLike(!like);
+  };
 
   return (
     <Card
       hoverable
       onClick={() => setOpen(!open)}
       style={{
-        width: "280px", // Card 크기를 고정시키기 위해 width 값을 지정
+        width: "280px",
         position: "relative",
         display: "flex",
         flexDirection: "column"
       }}
       cover={<img alt="example" src={imageURL} style={{ width: "100%", height: "320px", objectFit: "cover" }} />}
     >
-      <Button shape="circle" icon={like ? <RiHeart3Fill style={{ color: "pink" }} /> : <RiHeart3Line />}
+      <Button
+        shape="circle"
+        icon={like ? <RiHeart3Fill style={{ color: "pink" }} /> : <RiHeart3Line />}
         style={{
           position: "absolute",
-          top: 10, right: 10,
+          top: 10,
+          right: 10,
           fontSize: "18px"
         }}
-        onClick={() => setLike(!like)} />
+        onClick={handleLikeButtonClick} // 하트 버튼 클릭 이벤트 핸들러
+      />
       <Meta title={x.NAME_KOR} description={address} />
+      <Link href={`/createreview?id=${x.MAIN_KEY}`} style={{ float: 'right' }}>
+        <Button type="text" style={{ fontSize: "15px" }}>
+          <HiPencilSquare />
+          <Text strong underline>리뷰 작성</Text>
+        </Button>
+      </Link>
     </Card>
-  )
+  );
 }

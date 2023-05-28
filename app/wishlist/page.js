@@ -7,10 +7,7 @@ export default function Wishlist() {
   
   return (
     <Space direction='horizontal'>
-      <Button type="text" style={{fontSize:"20px"}}>전체</Button>
-      <Button type="text" style={{fontSize:"20px"}}>🍙 맛집</Button>
-      <Button type="text" style={{fontSize:"20px"}}>🏩 숙소</Button>
-      <Button type="text" style={{fontSize:"20px"}}>🎏 축제</Button>
+      Wishlist @@
     </Space>
   )
 }

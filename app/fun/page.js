@@ -1,6 +1,8 @@
 "use client";
 import KakaoMap from '@/components/KakaoMap';
 import AutoplayImg from '@/components/AutoplayImg';
+import Link from 'next/link';
+import { HiPencilSquare } from 'react-icons/hi2';
 import Culture from '@/components/Culture';
 
 export default function Fun() {

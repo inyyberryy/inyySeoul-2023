@@ -1,4 +1,4 @@
-import { Card, Pagination, Button, Image, Modal, Typography, Row, Col } from 'antd';
+import { Card, Pagination, Button, Image, Drawer, Row, Col, Space, Typography } from 'antd';
 import { RiHeart3Line, RiHeart3Fill } from 'react-icons/ri';
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -52,6 +52,10 @@ function CardPage({ x, sliceData }) {
   const [imageURL, setImageURL] = useState('');
   const [open, setOpen] = useState(false);
 
+  const handleSite = () => {
+    setOpen(!open);
+  };
+
   const address = "서울시" + " " + x.H_KOR_GU + " " + x.H_KOR_DONG;
 
   useEffect(() => {
@@ -79,6 +83,8 @@ function CardPage({ x, sliceData }) {
       }}
       cover={<img alt="example" src={imageURL} style={{ width: "100%", height: "320px", objectFit: "cover" }} />}
     >
+      <Meta title={x.TITLE} description={<span style={{ whiteSpace: "nowrap" }}>{x.PLACE}</span>} />
+
       <Button
         shape="circle"
         icon={like ? <RiHeart3Fill style={{ color: "pink" }} /> : <RiHeart3Line />}
@@ -91,16 +97,14 @@ function CardPage({ x, sliceData }) {
         onClick={() => setLike(!like)}
       />
       <Meta title={x.NAME_KOR} description={x.CATE3_NAME + "/ " + address} />
-      <Modal
-        title={x.NAME_KOR}
-        open={open}
-      >    
-        <p>{x.CATE3_NAME}</p>
-        <p>{address}</p>
-        <p>Some contents...</p>
-        <Link href="/createreview"  style={{float:'right'}}><Button type="text" style={{fontSize:"15px"}}><HiPencilSquare /><Text strong underline>리뷰 작성</Text></Button></Link>
-
-      </Modal>
+        <Drawer title={x.TITLE} placement="left" onClose={handleSite} open={open} >
+          <p><Text strong>이름 : </Text>{x.NAME_KOR}</p>
+          <p><Text strong>주소 : </Text>{address}</p>
+          <hr/>
+        <Link href={{ pathname: '/createreview', query: { id: x.MAIN_KEY } }}  style={{float:'right'}}>
+          <Button type="text" style={{fontSize:"15px"}}><HiPencilSquare /><Text strong underline>리뷰 작성</Text></Button>
+        </Link>      
+      </Drawer>
     </Card>
   )
 }

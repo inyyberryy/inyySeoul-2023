@@ -82,7 +82,9 @@ function CardPage({ x }) {
         <p><Text strong>신청일 : </Text>{x.RGSTDATE}</p>
         <p><Text strong>시작일 : </Text>{x.STRTDATE}</p>
         <hr/>
-        <Link href="/createreview"  style={{float:'right'}}><Button type="text" style={{fontSize:"15px"}}><HiPencilSquare /><Text strong underline>리뷰 작성</Text></Button></Link>
+        <Link href={{ pathname: '/createreview', query: { id: x.MAIN_KEY } }}  style={{float:'right'}}>
+          <Button type="text" style={{fontSize:"15px"}}><HiPencilSquare /><Text strong underline>리뷰 작성</Text></Button>
+        </Link>      
       </Drawer>
     </Card>
   )

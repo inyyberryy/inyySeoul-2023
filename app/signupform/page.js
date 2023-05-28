@@ -3,8 +3,6 @@ import { Button, Checkbox, Form, Input, Select, Option, message, Modal } from 'a
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Encrypt from '@/components/Encrypt';
-import { PlusOutlined } from '@ant-design/icons';
-import Password from 'antd/es/input/Password';
 
 export default function SignUpForm() {
   const pathname = usePathname();
