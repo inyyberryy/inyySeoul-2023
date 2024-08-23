@@ -3,8 +3,8 @@ const axios = require('axios');
 
 const app = express();
 const PORT = 3000;
-const clientId = 'jk_j68LlwwlMBc_8xsFA'; // 본인의 네이버 API 클라이언트 ID로 대체
-const clientSecret = 'aIQN_IgJm5'; // 본인의 네이버 API 클라이언트 시크릿으로 대체
+const clientId = '';
+const clientSecret = '';
 
 // CORS 미들웨어 활성화
 app.use((req, res, next) => {
