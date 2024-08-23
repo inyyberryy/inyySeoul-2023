@@ -15,8 +15,8 @@ export default NextAuth({
   },
   providers: [
     KakaoProvider({
-      clientId: 'f9425de55e0004bce96d21c0bbe5887d',  // 앱 설정 -> 앱키 
-      clientSecret: 'iIgSj0z8dDwnzPGt5BUISLfXTOL3utyf',
+      clientId: '',  // 앱 설정 -> 앱키 
+      clientSecret: '',
     }),
     CredentialsProvider({
     //1. 로그인페이지 폼 자동생성해주는 코드 
