@@ -6,8 +6,8 @@ const axios = require('axios');
 
 // 네이버 API 요청을 보내는 함수
 async function searchNaverImage(query) {
-  const clientId = '8PtrwfWWdadZ7U8fJyEq'; // 네이버 API 클라이언트 ID
-  const clientSecret = '4sf8k155UI'; // 네이버 API 클라이언트 시크릿
+  const clientId = ''; // 네이버 API 클라이언트 ID
+  const clientSecret = ''; // 네이버 API 클라이언트 시크릿
 
   try {
     const response = await axios.get('https://openapi.naver.com/v1/search/image', {
